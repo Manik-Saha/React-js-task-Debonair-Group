@@ -1,5 +1,6 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import InputField from "../../components/input/inputField";
 import UserList from "./userList";
 
 function AddUser() {
@@ -18,49 +19,23 @@ function AddUser() {
           }
           return errors;
         }}
-              onSubmit={(values, { setSubmitting }) => {
-                  const newUser = {
-                    firstName: values.firstName,
-                    lastName: values.lastName,
-                    employeeType: "Admin",
-                    divisionId: 0,
-                    districeID: 0,
-                    disvision: "",
-                    district: "",
-                  };
+        onSubmit={(values, { setSubmitting }) => {
+            const newUser = {
+              firstName: values.firstName,
+              lastName: values.lastName,
+              employeeType: "Admin",
+              divisionId: 0,
+              districeID: 0,
+              disvision: "",
+              district: "",
+            };
+            console.log(newUser)
         }}
       >
         {({ isSubmitting }) => (
           <Form>
-            <label htmlFor="">
-              First Name <span className="text-danger">*</span>
-            </label>
-            <Field
-              className="w-100 mb-2"
-              type="text"
-              name="firstName"
-              placeholder="First name"
-            />
-            <ErrorMessage
-              className="text-danger mb-2"
-              name="firstName"
-              component="div"
-            />
-
-            <label htmlFor="">
-              Last Name <span className="text-danger">*</span>
-            </label>
-            <Field
-              className="w-100 mb-2"
-              type="text"
-              name="lastName"
-              placeholder="Last name"
-            />
-            <ErrorMessage
-              className="text-danger mb-2"
-              name="lastName"
-              component="div"
-            />
+            <InputField label="First Name" name="firstName" placeholder="Please enter your first name"></InputField>
+            <InputField label="Last Name" name="lastName" placeholder="Please enter your last name"></InputField>
 
             <button
               className="btn btn-primary d-flex mx-auto"

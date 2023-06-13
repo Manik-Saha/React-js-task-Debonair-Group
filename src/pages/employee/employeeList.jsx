@@ -27,6 +27,10 @@ function EmployeeList() {
       });
   };
 
+  const details = (id) => {
+
+  }
+
   const columns = [
     { field: "empID", headerName: "ID" },
     { field: "firstName", headerName: "First Name" },
@@ -34,6 +38,13 @@ function EmployeeList() {
     { field: "district", headerName: "District" },
     { field: "disvision", headerName: "Division" },
     { field: "employeeType", headerName: "Employee Type" },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: (params) => (
+        <Button label="Details" className="btn btn-outline-info" onClick={() => {details(params.row.id)}}></Button>
+      ),
+    },
   ];
 
   return (

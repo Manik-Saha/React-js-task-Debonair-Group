@@ -1,19 +1,24 @@
 import React from "react";
-import { useFormikContext } from "formik";
+import { ErrorMessage } from "formik";
 
-const DropdownField = ({ name, options, ...rest }) => {
-  const { values, handleChange } = useFormikContext();
-        console.log(options);
+const DropdownField = (props) => {
 
-  return (
-    <select name={name} onChange={handleChange} value={values[name]} {...rest}>
-      {options.map((option) => (
-        <option key={option.divID} value={option.divID}>
-          {option.divisionName}
-        </option>
-      ))}
-    </select>
-  );
+return (
+<div>
+  {console.log(props)}
+  <label htmlFor="">
+    {props.label} <span className="text-danger">*</span>
+  </label>
+  <select name={props.name}>
+    {props.data.map((option) => (
+    <option key={option.divID} value={option.divID}>
+      {option.divisionName}
+    </option>
+    ))}
+  </select>
+  <ErrorMessage className="text-danger mb-2" name={props.name} component="div" />
+</div>
+);
 };
 
 export default DropdownField;

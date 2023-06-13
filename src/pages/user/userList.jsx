@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "../../components/datatable/datatable";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import AddUser from "./addUser";
+import Button from "../../components/button/button";
 
 function UserList(props) {
   const [userData, setUserData] = useState();
@@ -22,12 +22,11 @@ function UserList(props) {
         );
       });
   }, []);
+
+  const details = (id) => {
+
+  }
     
-    // if (props) {
-    //     const newArr = JSON.parse(userData ? userData : null);
-    //     newArr.push(props.newUser)
-    //     setUserData(JSON.stringify(newArr));
-    // }
 
   const columns = [
     { field: "empID", headerName: "ID" },
@@ -36,13 +35,18 @@ function UserList(props) {
     { field: "district", headerName: "District" },
     { field: "disvision", headerName: "Division" },
     { field: "employeeType", headerName: "Employee Type" },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: (params) => (
+        <Button label="Details" className="btn btn-outline-info" onClick={() => {details(params.row.id)}}></Button>
+      ),
+    },
   ];
 
   return (
     <div>
-      <Button onClick={modalOpen} className="mb-3" variant="outlined">
-        Add new User
-      </Button>
+      <Button label="Add new User" className="btn btn-outline-primary my-3" onClick={modalOpen}></Button>
       {userData ? (
         <DataTable rows={userData} columns={columns}></DataTable>
       ) : null}
@@ -53,6 +57,7 @@ function UserList(props) {
         aria-describedby="modal-modal-description"
       >
         <div className="modal-style">
+          <Button label="close" className="btn btn-outline-danger my-3" onClick={modalClose}></Button>
           <AddUser></AddUser>
         </div>
       </Modal>

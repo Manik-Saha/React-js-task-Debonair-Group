@@ -1,19 +1,21 @@
 import React from "react";
 import { Field, ErrorMessage } from "formik";
 
-function InputField({ label, name, placeholder }) {
+function InputField(props) {
+  return(
   <div>
     <label htmlFor="">
-      {label} <span className="text-danger">*</span>
+      {props.label} <span className="text-danger">*</span>
     </label>
     <Field
       className="w-100 mb-2"
       type="text"
-      name={name}
-      placeholder={placeholder}
+      name={props.name}
+      placeholder={props.placeholder}
     />
-    <ErrorMessage className="text-danger mb-2" name={name} component="div" />
-  </div>;
+    <ErrorMessage className="text-danger mb-2" name={props.name} component="div" />
+  </div>
+  );
 }
 
 export default InputField;
