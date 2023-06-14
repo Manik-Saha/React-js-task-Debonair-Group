@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "../../components/datatable/datatable";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import AddEmployee from "./addEmployee";
+import { Link } from "react-router-dom";
 
 function EmployeeList() {
   const [userData, setUserData] = useState();
-  const [open, setOpen] = React.useState(false);
-  const modalOpen = () => setOpen(true);
-  const modalClose = () => setOpen(false);
 
   useEffect(() => {
     getAllEmployee();
@@ -27,10 +22,6 @@ function EmployeeList() {
       });
   };
 
-  const details = (id) => {
-
-  }
-
   const columns = [
     { field: "empID", headerName: "ID" },
     { field: "firstName", headerName: "First Name" },
@@ -39,32 +30,26 @@ function EmployeeList() {
     { field: "disvision", headerName: "Division" },
     { field: "employeeType", headerName: "Employee Type" },
     {
-      field: 'actions',
-      headerName: 'Actions',
+      field: "actions",
+      headerName: "Actions",
       renderCell: (params) => (
-        <Button label="Details" className="btn btn-outline-info" onClick={() => {details(params.row.id)}}></Button>
+        <Link
+          label="Details"
+          className="btn btn-outline-success"
+          to={`/user/details/${params.row.empID}`}
+        >
+          Details
+        </Link>
       ),
     },
   ];
 
   return (
-      <div>
-      <Button onClick={modalOpen} className="mb-3" variant="outlined">
-        Add new Employee
-      </Button>
+    <div>
       {userData ? (
+        // use datatable component to view employee data
         <DataTable rows={userData} columns={columns}></DataTable>
       ) : null}
-      <Modal
-        open={open}
-        onClose={modalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <div className="modal-style">
-          <AddEmployee></AddEmployee>
-        </div>
-      </Modal>
     </div>
   );
 }

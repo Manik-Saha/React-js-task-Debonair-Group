@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "../../components/datatable/datatable";
-import Modal from "@mui/material/Modal";
-import AddUser from "./addUser";
-import Button from "../../components/button/button";
+import { Link } from "react-router-dom";
 
-function UserList(props) {
+function UserList() {
   const [userData, setUserData] = useState();
-  const [open, setOpen] = React.useState(false);
-  const modalOpen = () => setOpen(true);
-  const modalClose = () => setOpen(false);
 
   useEffect(() => {
     axios
@@ -23,11 +18,6 @@ function UserList(props) {
       });
   }, []);
 
-  const details = (id) => {
-
-  }
-    
-
   const columns = [
     { field: "empID", headerName: "ID" },
     { field: "firstName", headerName: "First Name" },
@@ -36,31 +26,26 @@ function UserList(props) {
     { field: "disvision", headerName: "Division" },
     { field: "employeeType", headerName: "Employee Type" },
     {
-      field: 'actions',
-      headerName: 'Actions',
+      field: "actions",
+      headerName: "Actions",
       renderCell: (params) => (
-        <Button label="Details" className="btn btn-outline-info" onClick={() => {details(params.row.id)}}></Button>
+        <Link
+          label="Details"
+          className="btn btn-outline-success"
+          to={`/user/details/${params.row.empID}`}
+        >
+          Details
+        </Link>
       ),
     },
   ];
 
   return (
     <div>
-      <Button label="Add new User" className="btn btn-outline-primary my-3" onClick={modalOpen}></Button>
       {userData ? (
+        // use datatable component to view user data
         <DataTable rows={userData} columns={columns}></DataTable>
       ) : null}
-      <Modal
-        open={open}
-        onClose={modalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <div className="modal-style">
-          <Button label="close" className="btn btn-outline-danger my-3" onClick={modalClose}></Button>
-          <AddUser></AddUser>
-        </div>
-      </Modal>
     </div>
   );
 }

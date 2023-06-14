@@ -5,14 +5,20 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import UserList from "../user/userList";
 import EmployeeList from "../employee/employeeList";
+import Button from "../../components/button/button";
+import Modal from "@mui/material/Modal";
+import Insert from "../add/insert";
 
 function Homepage() {
-    const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
+  const modalOpen = () => setOpen(true);
+  const modalClose = () => setOpen(false);
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-      setValue(newValue);
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
   };
-  
+
   interface TabPanelProps {
     children?: React.ReactNode;
     dir?: string;
@@ -40,24 +46,52 @@ function Homepage() {
     );
   }
 
-    return (
-      <div>
-        <Box >
-          <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="User"></Tab>
-            <Tab label="Employees"></Tab>
-          </Tabs>
-          
-            <TabPanel value={value} index={0}>
-              <UserList></UserList>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <EmployeeList></EmployeeList>
-            </TabPanel>
-         
-        </Box>
-      </div>
-    );
+  return (
+    <div>
+      <Tabs
+        className="border mx-5 my-3"
+        value={value}
+        onChange={handleChange}
+        centered
+      >
+        {/* tab name */}
+        <Tab label="User"></Tab>
+        <Tab label="Employees"></Tab>
+      </Tabs>
+
+      {/* button for open the modal for adding new users */}
+      <Button
+        label="Add new Employee"
+        className="btn btn-outline-primary mb-3 mx-5"
+        onClick={modalOpen}
+      ></Button>
+
+      {/* tab body */}
+      <TabPanel className="mx-3" value={value} index={0}>
+        <UserList></UserList>
+      </TabPanel>
+      <TabPanel className="mx-3" value={value} index={1}>
+        <EmployeeList></EmployeeList>
+      </TabPanel>
+
+      {/* Modal Open for adding a new employee */}
+      <Modal
+        open={open}
+        onClose={modalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className="modal-style">
+          <Button
+            label={<i class="bi bi-x-lg"></i>}
+            className="btn btn-outline-danger cross-btn"
+            onClick={modalClose}
+          ></Button>
+          <Insert setOpen={setOpen}></Insert>
+        </div>
+      </Modal>
+    </div>
+  );
 }
 
 export default Homepage;
