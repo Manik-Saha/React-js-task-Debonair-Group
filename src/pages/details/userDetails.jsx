@@ -93,6 +93,7 @@ useEffect(() => {
         return user.empID == params.id;
         });
         setUserDetails(singleUser);
+        setType(singleUser.employeeType)
     });
 }, []);
 
@@ -103,7 +104,7 @@ const initialValues = {
     disvision: userDetails ? userDetails.disvision : null,
     district: userDetails ? userDetails.district : null,
     empID: userDetails ? userDetails.empID : null,
-    employeeType: userDetails ? userDetails.employeeType : null,
+    employeeType: type ? type : null,
 };
 
 return (
@@ -174,13 +175,13 @@ return (
                             }}
                         >
                             <option
-                            selected={userDetails.employeeType == "Admin"}
+                            selected={type == "Admin"}
                             value="Admin"
                             >
                             Admin
                             </option>
                             <option
-                            selected={userDetails.employeeType == "Employee"}
+                            selected={type == "Employee"}
                             value="Employee"
                             >
                             Employee
@@ -209,7 +210,7 @@ return (
                     <td>{userDetails.disvision}</td>
                     </tr>
                 ) : null}
-                {editMode &&( userDetails.employeeType === "Employee" || type === "Employee") ? (
+                {editMode && type === "Employee" ? (
                     <tr>
                     <td>Division/District</td>
                     <DivisionDistrict
