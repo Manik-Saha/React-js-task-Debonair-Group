@@ -61,10 +61,10 @@ const updateInfo = async (values) => {
     )
     .then((response) => {
         if (response) {
-        <Alert severity="success">User updated successfully.</Alert>;
+            <Alert severity="success">User updated successfully.</Alert>;
         }
         if (!response.ok) {
-        throw new Error("Failed to update user");
+            throw new Error("Failed to update user");
         }
     })
     .catch((error) => {

@@ -58,6 +58,7 @@ const validationSchema = Yup.object().shape({
 });
 // method for validation end
 
+//submit
 const insertEmployee = (values) => {
     const newUser = {
     firstName: values.firstName,
@@ -107,7 +108,7 @@ return (
 
         <DropDown
             onChange={(event) => {
-            empType(event.target.value);
+                empType(event.target.value);
             }}
             label="Employee Type"
             name="employeeType"

@@ -8,7 +8,7 @@ function InputField(props) {
       {props.label} <span className="text-danger">*</span>
     </label>
     <Field
-      className="w-100 mb-2"
+      className="w-100"
       type="text"
       name={props.name}
       placeholder={props.placeholder}

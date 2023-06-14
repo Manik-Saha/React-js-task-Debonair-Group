@@ -8,7 +8,7 @@ const DropDown = (props) => {
         {props.label} <span className="text-danger">*</span>
       </label>
       <select 
-        className="w-100 mb-2"
+        className="w-100"
         name={props.name}
         onChange={props.onChange}
       >

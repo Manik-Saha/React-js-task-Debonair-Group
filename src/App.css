@@ -7,10 +7,24 @@
   padding: 2% 5%;
 }
 
+@media(max-width:767px) { 
+  .modal-style{
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
 .cross-btn{
   position: absolute;
   right: 31%;
   top: 12vh;
+}
+
+@media(max-width:767px) { 
+  .cross-btn{
+    right:12%;
+    top: 12vh;
+  }
 }
 
 input[type="text"],
